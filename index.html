@@ -1,278 +1,288 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MG Cafe And Tea</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Cafe & Tea</title>
 
-    body { background:#0f172a; color:#fff; }
+</head>
+<style>
 
-    /* NAVBAR */
-    nav {
-      position:fixed;
-      width:100%;
-      top:0;
-      background:rgba(0,0,0,0.8);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:15px 20px;
-      z-index:1000;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
 
-    nav h2 { color:#facc15; }
+body {
+    background: #121212;
+    color: white;
+}
 
-    .nav-links {
-      display:flex;
-      flex-wrap:wrap;
-    }
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
 
-    nav a { color:#fff; text-decoration:none; margin:5px 10px; font-size:0.9rem; }
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+}
+
+/* HERO WITH PIZZA BG */
+.hero {
+    height: 100vh;
+    background: url('https://images.unsplash.com/photo-1513104890138-7c749659a591') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay {
+    background: rgba(0,0,0,0.6);
+    padding: 40px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.overlay h1 {
+    font-size: 40px;
+}
+
+/* SECTION */
+.section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+/* ACCORDION */
+.accordion {
+    max-width: 600px;
+    margin: auto;
+}
+
+.accordion-header {
+    width: 100%;
+    padding: 15px;
+    background: #222;
+    border: none;
+    color: white;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.4s;
+    background: #333;
+}
+
+.accordion-content.open {
+    max-height: 400px;
+    padding: 10px;
+}
+
+/* INSTAGRAM */
+.insta .btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #E1306C;
+    color: white;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+/* CONTACT */
+.contact {
+    background: #1e1e1e;
+}
+
+/* FOOTER */
+footer {
+    padding: 20px;
+    text-align: center;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
 
     .menu-toggle {
-      display:none;
-      font-size:1.5rem;
-      cursor:pointer;
+        display: block;
     }
 
-    /* HERO */
-    header {
-      background: url('https://images.unsplash.com/photo-1550547660-d9450f859349') no-repeat center/cover;
-      height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      padding:20px;
+    .nav-links {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        flex-direction: column;
+        background: black;
+        width: 200px;
+        display: none;
     }
 
-    header h1 { font-size:3rem; }
-    header p { margin:10px 0; font-size:1rem; }
-
-    .rating { color:#facc15; }
-
-    .btn {
-      padding:10px 20px;
-      background:#f43f5e;
-      color:#fff;
-      border:none;
-      cursor:pointer;
-      margin-top:15px;
-      border-radius:5px;
+    .nav-links.active {
+        display: flex;
     }
 
-    section { padding:60px 20px; text-align:center; }
-
-    /* GRID */
-    .menu-items, .gallery-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      gap:15px;
-      margin-top:20px;
+    .overlay h1 {
+        font-size: 28px;
     }
-
-    .gallery-grid img {
-      width:100%;
-      height:180px;
-      object-fit:cover;
-      border-radius:10px;
-    }
-
-    /* ACCORDION */
-    .accordion-item {
-      margin:10px auto;
-      max-width:600px;
-      border-radius:10px;
-      overflow:hidden;
-      background:#1e293b;
-    }
-
-    .accordion-header {
-      width:100%;
-      padding:12px;
-      background:#f43f5e;
-      color:#fff;
-      border:none;
-      cursor:pointer;
-      text-align:left;
-    }
-
-    .accordion-content {
-      display:none;
-      padding:10px;
-      background:#020617;
-      text-align:left;
-    }
-
-    /* CARDS */
-    .card {
-      background:#1e293b;
-      padding:15px;
-      border-radius:10px;
-    }
-
-    /* FORM */
-    input {
-      width:90%;
-      max-width:300px;
-      padding:10px;
-      margin:8px 0;
-      border-radius:5px;
-      border:none;
-    }
-
-    footer {
-      background:#020617;
-      text-align:center;
-      padding:20px;
-    }
-
-    /* MOBILE */
-    @media(max-width:768px) {
-      header h1 { font-size:2rem; }
-
-      .menu-toggle { display:block; }
-
-      .nav-links {
-        display:none;
-        flex-direction:column;
-        background:#000;
-        position:absolute;
-        top:60px;
-        left:0;
-        width:100%;
-        padding:10px;
-      }
-
-      .nav-links a { margin:10px 0; }
-    }
-  </style>
-</head>
+}
+</style>
 <body>
 
-<nav>
-  <h2>MG Cafe</h2>
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-  <div class="nav-links" id="navLinks">
-    <a href="#about">About</a>
-    <a href="#menu">Menu</a>
-    <a href="#gallery">Photos</a>
-    <a href="#offers">Offers</a>
-    <a href="#reviews">Reviews</a>
-    <a href="#booking">Book</a>
-    <a href="#instagram">Instagram</a>
-    <a href="#contact">Contact</a>
-  </div>
+<!-- NAVBAR -->
+<nav class="navbar">
+    <h2 class="logo">MG Cafe</h2>
+    <div class="menu-toggle" id="menuToggle">☰</div>
+
+    <div class="nav-links" id="navLinks">
+        <a href="#menu">Menu</a>
+        <a href="#instagram">Instagram</a>
+        <a href="#contact">Contact</a>
+    </div>
 </nav>
 
-<header>
-  <h1>MG Cafe And Tea</h1>
-  <p>Crispy Snacks • Hot Sips • Chill Feels</p>
-  <div class="rating">⭐ 4.7 Rating</div>
-  <button class="btn" onclick="scrollToSection('menu')">Explore Menu</button>
+<!-- HERO (PIZZA BG) -->
+<header class="hero">
+    <div class="overlay">
+        <h1>MG Cafe & Tea</h1>
+        <p>Crispy Snacks • Hot Sips • Chill Feels</p>
+    </div>
 </header>
 
-<section id="about">
-  <h2>About Us</h2>
-  <p>Your favorite cafe in Tanda serving burgers, pizza, shakes & more.</p>
-</section>
+<!-- MENU -->
+<section id="menu" class="section">
+    <h2>🍽 Our Menu</h2>
 
-<section id="gallery">
-  <h2>📸 Photos</h2>
-  <div class="gallery-grid">
-    <img src="https://images.unsplash.com/photo-1555992336-03a23c4a1d0a">
-    <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1">
-  </div>
-</section>
+    <div class="accordion">
 
-<section id="menu">
-  <h2>Menu</h2>
-  <div class="accordion">
-    <div class="accordion-item">
-      <button class="accordion-header">🍔 Burgers</button>
-      <div class="accordion-content">
-        <p>Aloo Tikki - ₹40</p>
-        <p>Paneer Burger - ₹70</p>
-      </div>
+        <!-- BURGER -->
+        <div class="accordion-item">
+            <button class="accordion-header">🍔 Burgers</button>
+            <div class="accordion-content">
+                <p>Aloo Tikki - ₹40</p>
+                <p>Veggie Burger - ₹50</p>
+                <p>Herby Burger - ₹50</p>
+                <p>Pizza Burger - ₹60</p>
+                <p>Paneer Burger - ₹70</p>
+                <p>Makhni Burger - ₹70</p>
+                <p>King Burger - ₹90</p>
+            </div>
+        </div>
+
+        <!-- PIZZA -->
+        <div class="accordion-item">
+            <button class="accordion-header">🍕 Pizza</button>
+            <div class="accordion-content">
+                <p>Margherita - ₹90</p>
+                <p>Veg Mighty - ₹180</p>
+                <p>Chilli Shot - ₹220</p>
+                <p>Mighty Crunch - ₹250</p>
+                <p>Fully Veg - ₹270</p>
+                <p>Farm House - ₹270</p>
+                <p>Teekha Paneer - ₹280</p>
+                <p>MG Special - ₹390</p>
+            </div>
+        </div>
+
+        <!-- SNACKS -->
+        <div class="accordion-item">
+            <button class="accordion-header">🍟 Snacks</button>
+            <div class="accordion-content">
+                <p>French Fries - ₹60</p>
+                <p>Peri-Peri Fries - ₹70</p>
+                <p>Chilli Potato - ₹90</p>
+                <p>Honey Chilli Potato - ₹100</p>
+                <p>Manchurian - ₹100</p>
+                <p>Chilli Paneer - ₹150</p>
+                <p>Garlic Bread - ₹110</p>
+            </div>
+        </div>
+
+        <!-- DRINKS -->
+        <div class="accordion-item">
+            <button class="accordion-header">🥤 Drinks</button>
+            <div class="accordion-content">
+                <p>Cold Coffee - ₹70</p>
+                <p>Oreo Shake - ₹150</p>
+                <p>Mango Shake - ₹150</p>
+                <p>KitKat Shake - ₹150</p>
+                <p>Cold Drink - ₹80</p>
+            </div>
+        </div>
+
+        <!-- TEA -->
+        <div class="accordion-item">
+            <button class="accordion-header">☕ Tea & Coffee</button>
+            <div class="accordion-content">
+                <p>Adrak Tea - ₹20</p>
+                <p>Elaichi Tea - ₹20</p>
+                <p>Chocolate Tea - ₹30</p>
+                <p>Hot Coffee - ₹25</p>
+            </div>
+        </div>
+
     </div>
-
-    <div class="accordion-item">
-      <button class="accordion-header">🍕 Pizza</button>
-      <div class="accordion-content">
-        <p>Margherita - ₹90</p>
-        <p>MG Special - ₹390</p>
-      </div>
-    </div>
-  </div>
 </section>
 
-<section id="offers">
-  <h2>🔥 Offers</h2>
-  <div class="menu-items">
-    <div class="card">
-      <p>Combo - ₹270</p>
-      <a href="https://wa.me/919368421460" target="_blank"><button class="btn">Order</button></a>
-    </div>
-  </div>
+<!-- INSTAGRAM -->
+<section id="instagram" class="section insta">
+    <h2>📸 Follow Us</h2>
+    <p>@mg_cafe_tea</p>
+
+    <a href="https://instagram.com/mg_cafe_tea" target="_blank" class="btn">
+        Visit Instagram
+    </a>
 </section>
 
-<section id="reviews">
-  <h2>⭐ Reviews</h2>
-  <div class="card">"Great food!"</div>
-</section>
+<!-- CONTACT -->
+<section id="contact" class="section contact">
+    <h2>📞 Contact Us</h2>
 
-<section id="booking">
-  <h2>Book Table</h2>
-  <form onsubmit="bookTable(event)">
-    <input type="text" placeholder="Name" required>
-    <input type="tel" placeholder="Phone" required>
-    <input type="date" required>
-    <input type="time" required>
-    <button class="btn">Book</button>
-  </form>
-</section>
-
-<section id="instagram">
-  <h2>Instagram</h2>
-  <a href="https://www.instagram.com/mg_cafe_tea" target="_blank">
-    <button class="btn">Visit Page</button>
-  </a>
-</section>
-
-<section id="contact">
-  <h2>Contact</h2>
-  <p>📍 Tanda, Bulandshahr</p>
-  <p>📞 9368421460</p>
+    <p>Phone: 9368421460</p>
+    <p>Available on Swiggy & Zomato</p>
+    <p>Free Delivery above ₹350</p>
 </section>
 
 <footer>
-  <p>© MG Cafe</p>
+    <p>© MG Cafe</p>
 </footer>
 
 <script>
-function toggleMenu() {
-  const nav = document.getElementById('navLinks');
-  nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-}
+const toggleBtn = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 
-function scrollToSection(id) {
-  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-}
+toggleBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
 
-function bookTable(e) {
-  e.preventDefault();
-  alert("Booked!");
-}
-
-document.querySelectorAll('.accordion-header').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const content = btn.nextElementSibling;
-    content.style.display = content.style.display === 'block' ? 'none' : 'block';
-  });
+document.querySelectorAll(".accordion-header").forEach(btn => {
+    btn.addEventListener("click", () => {
+        btn.nextElementSibling.classList.toggle("open");
+    });
 });
 </script>
 
